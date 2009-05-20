@@ -19,7 +19,7 @@ sub prepare_arguments {
     $ENV{JOOSE_LIB} = $app_conf->{library};
     $ENV{JOOSE_BUNDLE} = $app_conf->{bundles};
     
-    $ENV{JOOSE_INC} = join(";", $ENV{JOOSE_INC}, @{$app_conf->{roots}});
+    $ENV{JOOSE_INC} = join(";", ($ENV{JOOSE_INC}, @{$app_conf->{roots}}));
     
 	return {};
 }

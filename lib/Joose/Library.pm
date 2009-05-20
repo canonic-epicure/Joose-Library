@@ -44,7 +44,7 @@ __PACKAGE__->config(
     'Model::Librarian' => {
         library => dir($jsan_libroot, 'library'),
         bundles => dir($jsan_libroot, 'bundles'),
-        roots => dir($jsan_libroot, 'lib')
+        roots => [ dir($jsan_libroot, 'lib') ]
     }
 );
 

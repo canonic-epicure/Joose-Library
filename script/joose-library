@@ -42,7 +42,7 @@ GetOptions(
     'restartdirectory=s@' => \$restart_directory,
     'followsymlinks'      => \$follow_symlinks,
     
-    'include|I'           => \@JOOSE_INC,
+    'include|I=s@'        => \@JOOSE_INC,
 );
 
 $ENV{JOOSE_INC} = join(";", $ENV{JOOSE_INC}, @JOOSE_INC);
