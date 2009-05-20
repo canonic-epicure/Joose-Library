@@ -25,6 +25,8 @@ my $restart_regex     = '(?:/|^)(?!\.#).+(?:\.yml$|\.yaml$|\.conf|\.pm)$';
 my $restart_directory = undef;
 my $follow_symlinks   = 0;
 
+my @JOOSE_INC         = ();
+
 my @argv = @ARGV;
 
 GetOptions(
@@ -39,7 +41,11 @@ GetOptions(
     'restartregex|rr=s'   => \$restart_regex,
     'restartdirectory=s@' => \$restart_directory,
     'followsymlinks'      => \$follow_symlinks,
+    
+    'include|I'           => \@JOOSE_INC,
 );
+
+$ENV{JOOSE_INC} = join(";", $ENV{JOOSE_INC}, @JOOSE_INC);
 
 pod2usage(1) if $help;
 

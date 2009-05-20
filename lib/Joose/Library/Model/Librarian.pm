@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use parent 'Catalyst::Model::Adaptor';
 
-use lib "../Joose-Librarian/lib";
+use Joose::Librarian;
 
 __PACKAGE__->config(
     class => 'Joose::Librarian' 
@@ -14,16 +14,12 @@ __PACKAGE__->config(
 sub prepare_arguments {
 	my ($self, $app) = @_; # $app sometimes written as $c
 	
-	my $app_conf =  $app->config->{'Model::Librarian'};
+	my $app_conf = $app->config->{'Model::Librarian'};
 	
-    $ENV{JOOSE_LIB} = $app->path_to($app_conf->{library});
-    $ENV{JOOSE_BUNDLE} = $app->path_to($app_conf->{bundles});
+    $ENV{JOOSE_LIB} = $app_conf->{library};
+    $ENV{JOOSE_BUNDLE} = $app_conf->{bundles};
     
-    my @inc = ();
-    foreach my $root (@{$app_conf->{roots}}) {
-    	push @inc, $app->path_to($root);
-    }
-    $ENV{JOOSE_INC} = join(";", @inc);
+    $ENV{JOOSE_INC} = join(";", $ENV{JOOSE_INC}, @{$app_conf->{roots}});
     
 	return {};
 }

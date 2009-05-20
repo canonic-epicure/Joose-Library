@@ -28,15 +28,23 @@ our $VERSION = '0.01';
 # with a external configuration file acting as an override for
 # local deployment.
 
+use Path::Class;
+
+use Module::Build::JSAN;
+
+my $jsan_libroot = Module::Build::JSAN::get_jsan_libroot();
+
 __PACKAGE__->config( 
     name => 'Joose::Library',
     
     persistent => 1,
     
+    JSAN_LIB => $jsan_libroot,
+    
     'Model::Librarian' => {
-        library => '../../../localLib/library',
-        bundles => '../../../localLib/bundles',
-        roots => [ '../../../localLib/root1', '../../../localLib/root2' ]
+        library => dir($jsan_libroot, 'library'),
+        bundles => dir($jsan_libroot, 'bundles'),
+        roots => dir($jsan_libroot, 'lib')
     }
 );
 
